@@ -1,0 +1,223 @@
+package main;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+
+public class Player {
+	int x, dx, nx2;
+	int y, dy, ny2;
+	int ny, bully;
+	public int points, bullies;
+	public boolean north = false;
+	public boolean south = false;
+	public boolean east = false;
+	public boolean west = false;
+	Image still;
+	String cardinal;
+	public boolean end = false;
+	public boolean start = true;
+	public boolean movementallowed = true;
+	public boolean dialogopen = false;
+	public boolean answergiven = false;
+	int answer;
+	Bully b;
+
+	public Player() {
+		points = 0;
+		x = 275;
+		nx2 = 700;
+		ny2 = 500;
+		ny = 0;
+		y = 175;
+	}
+
+	public void move() {
+		ImageIcon i = new ImageIcon("abw/" + cardinal);
+		
+		
+		
+			
+		if(west == true && x <= 193){
+			dx = 0;
+		}
+		if(east == true && x >= 350){
+			dx = 0;
+		}
+		if(north == true && y < 159){
+			dy = 0;
+		}
+		if(south == true && y > 1934){
+			dy = 0;
+		}
+		if(y > 250){
+			start = false;
+		}
+		if(y > 1920 ){
+			end = true;
+		}
+		
+		if(y == 651){
+			dialogopen = true;
+			answergiven = false;
+			bully = 1;
+		}
+		
+		
+		if(y == 1256){
+			dialogopen = true;
+			answergiven = false;
+			bully = 2;
+		}
+		
+		if(y == 1600){
+			dialogopen = true;
+			answergiven = false;
+			bully = 3;
+		}
+		
+		
+
+		
+
+		x = x + dx;
+		y = y + dy;
+		nx2 = nx2 + dx;
+		ny2 = ny2 + dy;
+		ny = ny + dy;
+		//direction sprite setting
+		if(north == true){
+			if(dy == 0 && movementallowed){
+				cardinal = "north.png";
+			}else
+				if(!(dy == 0)){
+					cardinal = "north.png";
+				}
+			
+		}
+		if(south == true){
+			if(dy == 0 && movementallowed){
+				cardinal = "south.png";
+			}else
+				if(!(dy == 0)){
+					cardinal = "south.png";
+				}
+
+		}
+		if(east == true){
+			if(dx == 0 && movementallowed){
+				cardinal = "east.png";
+			}else
+				if(!(dx == 0)){
+					cardinal = "east.png";
+				}
+			
+		}
+		if(west == true){			
+			if(dx == 0 && movementallowed){
+				cardinal = "west.png";
+			}else
+				if(!(dx == 0)){
+					cardinal = "west.png";
+				}
+
+		}
+		still = i.getImage();
+
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public Image getImage() {
+		return still;
+	}
+
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_1){
+			answer = 1;
+			dialogopen = false;
+			points += 1;
+		}
+		if(key == KeyEvent.VK_2){
+			answer = 2;
+			answergiven = true;
+			dialogopen = false;
+			
+		}
+		if(key == KeyEvent.VK_3){
+			answer = 3;
+			answergiven = true;
+			dialogopen = false;
+			points += 1;
+		}
+		if(key == KeyEvent.VK_4){
+			answer = 4;
+			answergiven = true;
+			dialogopen = false;
+
+		}
+		if(key == KeyEvent.VK_SPACE && end == true){
+			
+		}
+		if ((key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) && movementallowed){
+			west = true;
+			north = false;
+			south = false;
+			east = false;
+				dx = -1;
+			
+			
+			
+		}
+		if ((key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) && movementallowed){
+			east = true;
+			west = false;
+			north = false;
+			south = false;
+			dx = 1;
+
+
+		}
+		if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) && movementallowed){
+			west = false;
+			north = false;
+			south = true;
+			east = false;
+			dy = 1;
+		}
+		if ((key == KeyEvent.VK_UP  || key == KeyEvent.VK_W) && movementallowed){
+			west = false;
+			north = true;
+			south = false;
+			east = false;
+			dy = -1;
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+
+		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT){
+			dx = 0;
+		}
+		if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT){
+			dx = 0;
+		}
+		if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP){
+			dy = 0;
+		}
+		if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN){
+			dy = 0;
+		}
+	}
+
+}

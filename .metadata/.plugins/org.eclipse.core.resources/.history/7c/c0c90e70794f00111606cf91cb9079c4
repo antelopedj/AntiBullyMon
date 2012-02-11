@@ -1,0 +1,58 @@
+package main;
+
+import java.awt.*;
+
+import javax.swing.ImageIcon;
+
+public class Bully {
+
+	Image img;
+	int x, y;
+	boolean isAlive = true;
+	String cardinalb;
+	Player p;
+	int nx, ny;
+	boolean bullytalk;
+
+	public Bully(int startX, int startY)
+	{
+		x = startX;
+		y = startY;
+		ImageIcon l = new ImageIcon("eastb.png");
+		img = l.getImage();
+		nx = 22;
+		ny = 32;
+		
+	}
+	
+	public int getX()
+	{
+		return x;
+	}
+	public int getY()
+	{
+		return y;
+	}
+	public boolean Alive()
+	{
+		return isAlive;
+	}
+	public Image getImage()
+	{
+		return img;
+	}
+	
+	public void move(int dx, int dy)
+	{
+		//Bully Movement//
+		//		Exactly the same process as with the player's movement, except
+		//			it is based off of how the player is moving (dx, dy) and not
+		//			the bully.
+		//	Variables Used: x, y, dx, dy.
+		x = x - dx;
+		y = y - dy;
+		//End of//Bully Movement//
+		
+		
+	}
+}

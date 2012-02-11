@@ -1,0 +1,216 @@
+package main;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+
+public class Player {
+	int x, dx, nx2, y, dy, ny2, ny, bully;
+	public int points, bullies, answer;
+	public boolean north, south, east, west, answergiven, dialogopen, end = false;
+	public boolean start, movementallowed = true;
+	Image still;
+	String cardinal;
+	Bully b;
+
+	public Player() {
+		points = 0;
+		x = 275;
+		nx2 = 700;
+		ny2 = 500;
+		ny = 0;
+		y = 175;
+	}
+
+	public void move() {
+		ImageIcon i = new ImageIcon("/abw/" + cardinal);
+		
+		//Game Borders//
+		// This is used to define whether the character can move past certain points.
+		//		If the player is moving in any direction (dx or dy) and hits a coordinate
+	    //			limit, the movement will be reset to 0 (stopped). This helps to restrict
+		//			the four corners of this game environment and prevents 'glitching' out
+		//			of the playing area.
+		//		Variables: dx, dy, x, y.
+					
+		if(dx == -1 && x <= 193){ dx = 0;}
+		if(dx == 1 && x >= 350){ dx = 0; }
+		if(dy == -1 && y < 159){ dy = 0; }
+		if(dy == 1 && y > 1934){ dy = 0; }
+		
+		//End of//Game Borders//
+		
+		
+		
+		if(y > 250){
+			start = false;
+		}
+		if(y > 1920 ){
+			end = true;
+		}
+		
+		if(y == 651){
+			dialogopen = true;
+			answergiven = false;
+			bully = 1;
+		}
+		
+		
+		if(y == 1256){
+			dialogopen = true;
+			answergiven = false;
+			bully = 2;
+		}
+		
+		if(y == 1600){
+			dialogopen = true;
+			answergiven = false;
+			bully = 3;
+		}
+		
+		
+
+		
+
+		x = x + dx;
+		y = y + dy;
+		nx2 = nx2 + dx;
+		ny2 = ny2 + dy;
+		ny = ny + dy;
+		
+		//direction sprite setting
+		if(dy == -1){
+			if(dy == 0 && movementallowed){
+				cardinal = "north.png";
+			}else
+				if(!(dy == 0)){
+					cardinal = "north.png";
+				}
+			
+		}
+		if(dy == 1){
+			if(dy == 0 && movementallowed){
+				cardinal = "south.png";
+			}else
+				if(!(dy == 0)){
+					cardinal = "south.png";
+				}
+
+		}
+		if(dx == 1){
+			if(dx == 0 && movementallowed){
+				cardinal = "east.png";
+			}else
+				if(!(dx == 0)){
+					cardinal = "east.png";
+				}
+			
+		}
+		if(dx == -1){			
+			if(dx == 0 && movementallowed){
+				cardinal = "west.png";
+			}else
+				if(!(dx == 0)){
+					cardinal = "west.png";
+				}
+
+		}
+		still = i.getImage();
+
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public Image getImage() {
+		return still;
+	}
+
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_1){
+			answer = 1;
+			dialogopen = false;
+			points += 1;
+		}
+		if(key == KeyEvent.VK_2){
+			answer = 2;
+			answergiven = true;
+			dialogopen = false;
+			
+		}
+		if(key == KeyEvent.VK_3){
+			answer = 3;
+			answergiven = true;
+			dialogopen = false;
+			points += 1;
+		}
+		if(key == KeyEvent.VK_4){
+			answer = 4;
+			answergiven = true;
+			dialogopen = false;
+
+		}
+		if(key == KeyEvent.VK_SPACE && end == true){
+			
+		}
+		if ((key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) && movementallowed){
+			west = true;
+			north = false;
+			south = false;
+			east = false;
+				dx = -1;
+			
+			
+			
+		}
+		if ((key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) && movementallowed){
+			east = true;
+			west = false;
+			north = false;
+			south = false;
+			dx = 1;
+
+
+		}
+		if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) && movementallowed){
+			west = false;
+			north = false;
+			south = true;
+			east = false;
+			dy = 1;
+		}
+		if ((key == KeyEvent.VK_UP  || key == KeyEvent.VK_W) && movementallowed){
+			west = false;
+			north = true;
+			south = false;
+			east = false;
+			dy = -1;
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+
+		if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT){
+			dx = 0;
+		}
+		if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT){
+			dx = 0;
+		}
+		if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP){
+			dy = 0;
+		}
+		if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN){
+			dy = 0;
+		}
+	}
+
+}

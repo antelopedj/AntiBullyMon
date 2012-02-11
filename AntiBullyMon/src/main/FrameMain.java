@@ -1,0 +1,18 @@
+package main;
+
+import javax.swing.*;
+
+public class FrameMain {
+	public FrameMain(){
+		JFrame frame = new JFrame();
+		frame.add(new Board());
+		frame.setTitle("Beat The Bully");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(600,400);
+		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+	}
+	public static void main(String[] args){
+		new FrameMain();
+	}
+}
